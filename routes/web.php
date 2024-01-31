@@ -80,3 +80,5 @@ Route::post('/ChangePassword', [ForgotPasswordController::class, 'changePassword
 
 Route::post('/AddComment', [CommentController::class,'addComment']) -> name('AddComment');
 
+Route::post('/DeleteComment', [CommentController::class, 'deleteComment']) -> name('DeleteComment');
+

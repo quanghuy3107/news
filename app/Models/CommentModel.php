@@ -19,4 +19,9 @@ class CommentModel extends Model
     {
         return DB::table('comment')->insert($data);
     }
+
+    public function softDeleteComment($id = 0)
+    {
+        return DB::table('comment')->where('CommentId',$id)->update(['is_deleted' => 1]);
+    }
 }

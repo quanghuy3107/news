@@ -28,8 +28,8 @@ class AuthServiceProvider extends ServiceProvider
             return $user->roles()->pluck('RoleCode')->contains($role);
         });
 
-        Gate::define('comment', function ($user, $comment) {
-            return $user->id == $comment->UserId;
+        Gate::define('comment', function ($user, $commentId) {
+            return $user->id == $commentId;
         });
     }
 }

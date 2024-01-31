@@ -37,7 +37,6 @@ class DetailClientController extends Controller
         $this->getCommentFeature->setCommentFeature($dtoComment);
         $this->getCommentFeature->handle();
         $dataComment = $this->getCommentFeature->getTransform();
-
         return view('clients.detail', compact('title','dataPosts', 'dataComment'));
     }
 

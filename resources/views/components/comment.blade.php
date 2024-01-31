@@ -1,4 +1,5 @@
 <div>
 {{--    {{$getComment($data,$postId)}}--}}
-    {{$data->PostsId}}
+{{--    {{$data['PostsId']}}--}}
+
 </div>

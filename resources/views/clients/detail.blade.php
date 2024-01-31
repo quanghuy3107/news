@@ -1,6 +1,6 @@
 @extends('layouts.client')
 @section('title')
-    {{$title}}
+    {{ $title }}
 @endsection
 @section('content')
     <div class="container p-5">
@@ -26,28 +26,23 @@
                             </div>
                         </div>
 
-{{--                        <?php--}}
-{{--                        if (!empty($dataComment)) :--}}
-{{--                            getComment($dataComment,$dataPosts["posts"]["PostsId"] );--}}
-{{--                        endif;--}}
-{{--                        ?>--}}
-{{--                        <x-comment :postsId="$dataPosts->PostsId"></x-comment>--}}
-{{--                        <x-comment :data="$dataComment"></x-comment>--}}
 
+                        @if (!empty($dataComment))
+                            @include('clients.comment', ['data'=>$dataComment, 'postsId'=>$dataPosts->PostsId])
+                        @endif
 
                     </div>
-                    @if(Auth::check())
+                    @if (Auth::check())
                         <div class="row">
-                            <form action="{{route('AddComment')}}" method="POST">
+                            <form action="{{ route('AddComment') }}" method="POST">
                                 <textarea name="Content" id="submit" cols="100%" rows="2" placeholder="Viết bình luận của bạn vào"></textarea>
-                                <input type="hidden" name="PostsId" value="{{$dataPosts->PostsId}}">
-                                <input type="hidden" name="UserId" value="{{Auth::user()->id}}">
-
-{{--                                    <?php if (!empty($errors['comment'])) : ?>--}}
-{{--                                <p style="color:red"><?= $errors['comment'] ?></p>--}}
-{{--                                <?php endif; ?>--}}
+                                <input type="hidden" name="PostsId" value="{{ $dataPosts->PostsId }}">
+                                <input type="hidden" name="UserId" value="{{ Auth::user()->id }}">
+                                @error('Content')
+                                <p style="color: red">{{$message}}</p>
+                                @enderror
                                 @csrf
-                                <button type="submit" class="btn btn-primary" >Gửi</button>
+                                <button type="submit" class="btn btn-primary">Gửi</button>
                             </form>
                             <!-- <a href="?controller=login">ds</a> -->
                         </div>
@@ -61,7 +56,8 @@
                     <div class="row sub-side-bar p-4 comment">
                         <div class="col-md-5 col-sm-12 p-2">
                             <a href="">
-                                <img src="{{asset('uploads/5563187178137268204c-houthi-17-8104-5033-1705967087.jpg')}}" alt="">
+                                <img src="{{ asset('uploads/5563187178137268204c-houthi-17-8104-5033-1705967087.jpg') }}"
+                                    alt="">
                             </a>
                         </div>
                         <div class="col-md-7 col-sm-12 p-2 ">
@@ -69,14 +65,16 @@
                                 <p class="text-side-bar">Mỹ, Anh phối hợp không kích Houthi</p>
                             </a>
                             <a href="">
-                                <p class="sub-text-side-bar">Mỹ và Anh thông báo phối hợp không kích lực lượng Houthi tại Yemen để đáp trả các vụ tập kích liên tục nhằm vào tàu thuyền trong khu vực. </p>
+                                <p class="sub-text-side-bar">Mỹ và Anh thông báo phối hợp không kích lực lượng Houthi tại
+                                    Yemen để đáp trả các vụ tập kích liên tục nhằm vào tàu thuyền trong khu vực. </p>
                             </a>
                         </div>
                     </div>
                     <div class="row sub-side-bar p-4 comment">
                         <div class="col-md-5 col-sm-12 p-2">
                             <a href="">
-                                <img src="{{asset('uploads/5563187178137268204c-houthi-17-8104-5033-1705967087.jpg')}}" alt="">
+                                <img src="{{ asset('uploads/5563187178137268204c-houthi-17-8104-5033-1705967087.jpg') }}"
+                                    alt="">
                             </a>
                         </div>
                         <div class="col-md-7 col-sm-12 p-2 ">
@@ -84,14 +82,16 @@
                                 <p class="text-side-bar">Mỹ, Anh phối hợp không kích Houthi</p>
                             </a>
                             <a href="">
-                                <p class="sub-text-side-bar">Mỹ và Anh thông báo phối hợp không kích lực lượng Houthi tại Yemen để đáp trả các vụ tập kích liên tục nhằm vào tàu thuyền trong khu vực. </p>
+                                <p class="sub-text-side-bar">Mỹ và Anh thông báo phối hợp không kích lực lượng Houthi tại
+                                    Yemen để đáp trả các vụ tập kích liên tục nhằm vào tàu thuyền trong khu vực. </p>
                             </a>
                         </div>
                     </div>
                     <div class="row sub-side-bar p-4 comment">
                         <div class="col-md-5 col-sm-12 p-2">
                             <a href="">
-                                <img src="{{asset('uploads/5563187178137268204c-houthi-17-8104-5033-1705967087.jpg')}}" alt="">
+                                <img src="{{ asset('uploads/5563187178137268204c-houthi-17-8104-5033-1705967087.jpg') }}"
+                                    alt="">
                             </a>
                         </div>
                         <div class="col-md-7 col-sm-12 p-2 ">
@@ -99,7 +99,8 @@
                                 <p class="text-side-bar">Mỹ, Anh phối hợp không kích Houthi</p>
                             </a>
                             <a href="">
-                                <p class="sub-text-side-bar">Mỹ và Anh thông báo phối hợp không kích lực lượng Houthi tại Yemen để đáp trả các vụ tập kích liên tục nhằm vào tàu thuyền trong khu vực. </p>
+                                <p class="sub-text-side-bar">Mỹ và Anh thông báo phối hợp không kích lực lượng Houthi tại
+                                    Yemen để đáp trả các vụ tập kích liên tục nhằm vào tàu thuyền trong khu vực. </p>
                             </a>
                         </div>
                     </div>
@@ -109,14 +110,14 @@
 
             <div class="col-xl-4 col-lg-12 side-right">
                 <div class="row qc">
-                    <img src="{{asset('uploads/qc.png')}}" alt="" style="width: 100%;">
+                    <img src="{{ asset('uploads/qc.png') }}" alt="" style="width: 100%;">
                 </div>
                 <div class="row">
                     <p class="sub-text">Xem nhiều</p>
                 </div>
                 <div class="row sub-content p-2">
                     <div class="col-4">
-                        <img src="{{asset('uploads/xe-khach-1647-1705991327.jpg')}}" alt="">
+                        <img src="{{ asset('uploads/xe-khach-1647-1705991327.jpg') }}" alt="">
                     </div>
                     <div class="col-8">
                         <a href="">
@@ -127,7 +128,7 @@
                 </div>
                 <div class="row sub-content p-2">
                     <div class="col-4">
-                        <img src="{{asset('uploads/xe-khach-1647-1705991327.jpg')}}" alt="">
+                        <img src="{{ asset('uploads/xe-khach-1647-1705991327.jpg') }}" alt="">
                     </div>
                     <div class="col-8">
                         <a href="">
@@ -138,7 +139,7 @@
                 </div>
                 <div class="row sub-content p-2">
                     <div class="col-4">
-                        <img src="{{asset('uploads/xe-khach-1647-1705991327.jpg')}}" alt="">
+                        <img src="{{ asset('uploads/xe-khach-1647-1705991327.jpg') }}" alt="">
                     </div>
                     <div class="col-8">
                         <a href="">
@@ -149,7 +150,7 @@
                 </div>
                 <div class="row sub-content p-2">
                     <div class="col-4">
-                        <img src="{{asset('uploads/xe-khach-1647-1705991327.jpg')}}" alt="">
+                        <img src="{{ asset('uploads/xe-khach-1647-1705991327.jpg') }}" alt="">
                     </div>
                     <div class="col-8">
                         <a href="">
@@ -160,7 +161,7 @@
                 </div>
                 <div class="row sub-content p-2">
                     <div class="col-4">
-                        <img src="{{asset('uploads/xe-khach-1647-1705991327.jpg')}}" alt="">
+                        <img src="{{ asset('uploads/xe-khach-1647-1705991327.jpg') }}" alt="">
                     </div>
                     <div class="col-8">
                         <a href="">
