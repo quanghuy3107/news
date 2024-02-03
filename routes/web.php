@@ -82,3 +82,12 @@ Route::post('/AddComment', [CommentController::class,'addComment']) -> name('Add
 
 Route::post('/DeleteComment', [CommentController::class, 'deleteComment']) -> name('DeleteComment');
 
+Route::get('/test',function (){
+    $role = \App\Models\RoleUserModel::where('RoleCode','ADMIN')->first()->RoleId;
+    $permission = \App\Models\Permission::where('PermissionCode', 'ShowUser')->first()->PermissionId;
+    $user = \App\Models\User::factory()->create();
+    $user->roles()->attach($role);
+    $user->roles()->attach($role);
+    dd($permission);
+
+});

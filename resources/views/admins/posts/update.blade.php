@@ -50,7 +50,7 @@
                                     <label>
                                         <h4>Tiêu đề bài viết</h4>
                                     </label>
-                                    <input type="text" name="Title" class="form-control" value="{{old('Title') ?? $data->Title}}" placeholder="Tiêu đề bài viết" />
+                                    <input type="text" name="Title" class="form-control" value="{{old('Title') ?? $data->title}}" placeholder="Tiêu đề bài viết" />
                                     @error('Title')
                                     <p style="color: red">{{$message}}</p>
 
@@ -70,7 +70,7 @@
                                     <label>
                                         <h4>Mô tả ngắn</h4>
                                     </label>
-                                    <input type="text" name="ShortDescription" class="form-control" value="{{old('ShortDescription') ?? $data->ShortDescription}}" placeholder="Mô tả ngắn" />
+                                    <input type="text" name="ShortDescription" class="form-control" value="{{old('ShortDescription') ?? $data->short_description}}" placeholder="Mô tả ngắn" />
                                     @error('ShortDescription')
                                     <p style="color: red">{{$message}}</p>
 
@@ -85,7 +85,7 @@
                                     <label>
                                         <h4>Nội dung bài viết</h4>
                                     </label>
-                                    <div id="summernote">{!!old('Content') ?? $data->Content !!}</div>
+                                    <div id="summernote">{!!old('Content') ?? $data->content !!}</div>
                                     <input type="hidden" id="content" name="Content">
                                     @error('Content')
                                     <p style="color: red">{{$message}}</p>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="card-footer">
                         @csrf
-                        <input type="hidden" value="{{$data->PostsId}}" name="PostsId" />
+                        <input type="hidden" value="{{$data->posts_id}}" name="PostsId" />
                         <button type="submit" class="btn btn-primary mr-2">Thay đổi</button>
                         <button type="reset" class="btn btn-secondary">Làm lại</button>
                         <a href="{{route('admins.posts.posts')}}" class="btn btn-default">Quay về</a>

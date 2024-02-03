@@ -30,7 +30,7 @@ class CreateCommentRequest extends FormRequest
     {
 
         return [
-            'PostsId' => ['required', Rule::exists('Posts', 'PostsId')],
+            'PostsId' => ['required', Rule::exists('posts', 'posts_id')],
 //            'UserId' => ['required', Rule::exists('users', 'id')],
             'Content' => 'required',
         ];

@@ -29,7 +29,7 @@ class LoginController extends Controller
         $this->checkUserFeature->setDTO($dto);
         $status = $this->checkUserFeature->handle();
         if($status){
-            if(Auth::user()->roles()->pluck('RoleCode')->contains('ADMIN')){
+            if(Auth::user()->roles()->pluck('role_code')->contains('ADMIN')){
                 return redirect()->route('admins.index');
 //                dd('admin');
             }else

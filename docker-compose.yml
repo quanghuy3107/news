@@ -1,0 +1,15 @@
+version: "2.4"
+
+services:
+    workspace:
+        image: "omtvn/laravel-intern"
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        container_name: "laravel_intern"
+        working_dir: /var/www/html
+        ports:
+            - "8999:80"
+        volumes:
+            - .:/var/www/html
+        restart: on-failure

@@ -9,14 +9,14 @@
             <div class="col-lg-9 col-md-12">
                 <div class="row p-4" style="border-bottom: 1px solid #ccc;">
                     <div class="col-lg-8 col-md-12">
-                        <img src="{{asset('uploads/' . $dataPosts[0]->Image)}}" alt="" style="width: 100%;">
+                        <img src="{{asset('uploads/' . $dataPosts[0]->image)}}" alt="" style="width: 100%;">
                     </div>
                     <div class="col-lg-4 col-md-12">
-                        <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[0]->PostsId])}}">
-                            <h3>{{$dataPosts[0]->Title}}</h3>
+                        <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[0]->posts_id])}}">
+                            <h3>{{$dataPosts[0]->title}}</h3>
                         </a>
-                        <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[0]->PostsId])}}">
-                            <p>{{$dataPosts[0]->ShortDescription}}</p>
+                        <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[0]->posts_id])}}">
+                            <p>{{$dataPosts[0]->short_description}}</p>
                         </a>
 
                     </div>
@@ -26,18 +26,18 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
                                 <div >
-                                    <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[1]->PostsId])}}"><img src="{{asset('uploads/' . $dataPosts[1]->Image)}}" alt="" style="width: 100%;"></a>
+                                    <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[1]->posts_id])}}"><img src="{{asset('uploads/' . $dataPosts[1]->image)}}" alt="" style="width: 100%;"></a>
                                 </div>
-                                <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[1]->PostsId])}}">
-                                    <p class="sub-text">{{$dataPosts[1]->Title}}</p>
+                                <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[1]->posts_id])}}">
+                                    <p class="sub-text">{{$dataPosts[1]->title}}</p>
                                 </a>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div>
-                                    <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[2]->PostsId])}}"><img src="{{asset('uploads/' . $dataPosts[2]->Image)}}" alt="" style="width: 100%;"></a>
+                                    <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[2]->posts_id])}}"><img src="{{asset('uploads/' . $dataPosts[2]->image)}}" alt="" style="width: 100%;"></a>
                                 </div>
-                                <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[2]->PostsId])}}">
-                                    <p class="sub-text">{{$dataPosts[2]->Title}}</p>
+                                <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[2]->posts_id])}}">
+                                    <p class="sub-text">{{$dataPosts[2]->title}}</p>
                                 </a>
                             </div>
                         </div>

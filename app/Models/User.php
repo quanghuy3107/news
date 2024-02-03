@@ -47,9 +47,9 @@ class User extends Authenticatable
     public function getUser()
     {
         return DB::table('users')
-            ->join('roleuserdetail','roleuserdetail.UserId','=','users.id')
-            ->join('roleuser','roleuser.RoleId', '=', 'roleuserdetail.RoleId')
-            ->Where('roleuser.RoleCode','USER')
+            ->join('details_role_user','details_role_user.user_id','=','users.id')
+            ->join('roles','roles.role_id', '=', 'details_role_user.role_id')
+            ->Where('roles.role_code','USER')
             ->where('users.is_deleted',0)->get();
     }
 
@@ -69,6 +69,12 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(RoleUserModel::class, 'roleuserdetail','UserId','RoleId');
+        return $this->belongsToMany(RoleUserModel::class, 'details_role_user','user_id','role_id');
     }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class,'details_permission','user_id', 'permission_id');
+    }
+
 }

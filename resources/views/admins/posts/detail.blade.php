@@ -35,7 +35,7 @@
                 <div class="card-body">
                     <div class="row " style="margin: 50px 0;">
                         <div class="col-8">
-                            {!! $dataPosts->Content !!}
+                            {!! $dataPosts->content !!}
                         </div>
                         <div class="col-4">
                             <div class="row">

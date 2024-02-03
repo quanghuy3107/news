@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-xl-8 col-lg-12">
                 <div class="row">
-                    {!! $dataPosts->Content !!}
+                    {!! $dataPosts->content !!}
                 </div>
 
                 <div class="row">
@@ -28,7 +28,7 @@
 
 
                         @if (!empty($dataComment))
-                            @include('clients.comment', ['data'=>$dataComment, 'postsId'=>$dataPosts->PostsId])
+                            @include('clients.comment', ['data'=>$dataComment, 'postsId'=>$dataPosts->posts_id])
                         @endif
 
                     </div>
@@ -36,7 +36,7 @@
                         <div class="row">
                             <form action="{{ route('AddComment') }}" method="POST">
                                 <textarea name="Content" id="submit" cols="100%" rows="2" placeholder="Viết bình luận của bạn vào"></textarea>
-                                <input type="hidden" name="PostsId" value="{{ $dataPosts->PostsId }}">
+                                <input type="hidden" name="PostsId" value="{{ $dataPosts->posts_id }}">
                                 <input type="hidden" name="UserId" value="{{ Auth::user()->id }}">
                                 @error('Content')
                                 <p style="color: red">{{$message}}</p>

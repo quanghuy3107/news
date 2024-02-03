@@ -32,7 +32,7 @@ class DeleteCommentRequest extends FormRequest
     {
 
         return [
-            'CommentId' => ['required', Rule::exists('comment', 'CommentId')],
+            'CommentId' => ['required', Rule::exists('comments', 'comment_id')],
         ];
     }
 

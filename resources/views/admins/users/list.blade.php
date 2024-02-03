@@ -82,10 +82,10 @@
                                     <td>{{$key + 1}}</td>
                                     <td>{{$value->name}} </td>
                                     <td>{{$value->email}}</td>
-                                    <td>{{$value->RoleName}}</td>
+                                    <td>{{$value->role_name}}</td>
                                     <td>
                                 <span style="overflow: visible; position: relative; width: 125px;" class="d-flex">
-
+                                    @can('deleteUser')
                                     <form action="{{route('admins.users.deleteUser')}}" method="post">
                                         <input type="hidden" value="{{$value->id}}" name="UserId">
                                         @csrf
@@ -106,7 +106,7 @@
                                                     </g>
                                                 </svg> </span> </button>
                                     </form>
-
+                                    @endcan
                                 </span>
                                     </td>
                                 </tr>

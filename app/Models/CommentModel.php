@@ -9,19 +9,19 @@ use Illuminate\Support\Facades\DB;
 class CommentModel extends Model
 {
     use HasFactory;
-    protected $table = "comment";
-    protected $primaryKey = "CommentId";
+    protected $table = "comments";
+    protected $primaryKey = "comment_id";
     public function getComment($postId = 0){
-        return DB::table('comment')->join('users','users.id', '=', 'comment.UserId')->where('comment.PostsId',$postId)->where('comment.is_deleted',0)->get();
+        return DB::table('comments')->join('users','users.id', '=', 'comments.user_id')->where('comments.posts_id',$postId)->where('comments.is_deleted',0)->get();
     }
 
     public function createComment($data = [])
     {
-        return DB::table('comment')->insert($data);
+        return DB::table('comments')->insert($data);
     }
 
     public function softDeleteComment($id = 0)
     {
-        return DB::table('comment')->where('CommentId',$id)->update(['is_deleted' => 1]);
+        return DB::table('comments')->where('comment_id',$id)->update(['is_deleted' => 1]);
     }
 }

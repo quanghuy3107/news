@@ -25,11 +25,23 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('hasRole', function ($user, $role) {
-            return $user->roles()->pluck('RoleCode')->contains($role);
+            return $user->roles()->pluck('role_code')->contains($role);
         });
 
         Gate::define('comment', function ($user, $commentId) {
             return $user->id == $commentId;
+        });
+
+        Gate::define('deleteUser', function ($user){
+            return $user->permissions()->pluck('permission_code')->contains('DeleteUser');
+        });
+
+        Gate::define('deletePosts', function ($user){
+            return $user->permissions()->pluck('permission_code')->contains('DeletePosts');
+        });
+
+        Gate::define('showUser', function ($user){
+            return $user->permissions()->pluck('permission_code')->contains('ShowUser');
         });
     }
 }

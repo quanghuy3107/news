@@ -12,6 +12,7 @@ use App\Http\Requests\admins\posts\CreatePostsRequest;
 use App\Http\Requests\admins\posts\DeletePostsRequest;
 use App\Http\Requests\admins\posts\FindPostsRequest;
 use App\Http\Requests\admins\posts\UpdatePostsRequest;
+use Illuminate\Support\Facades\Gate;
 
 class PostsController extends Controller
 {
@@ -59,14 +60,19 @@ class PostsController extends Controller
     }
 
     public function deletePosts(DeletePostsRequest $formRequest){
-        $dto = $formRequest->getDTO();
-        $this->deletePostsFeature->setPostsDTO($dto);
-        $status = $this->deletePostsFeature->handle();
-        if($status){
-            return redirect()-> back() ->with ('msg', 'Xóa bài viết thành công.')->with('type', 'success');
+        if(Gate::allows('deleteUser')){
+            $dto = $formRequest->getDTO();
+            $this->deletePostsFeature->setPostsDTO($dto);
+            $status = $this->deletePostsFeature->handle();
+            if($status){
+                return redirect()-> back() ->with ('msg', 'Xóa bài viết thành công.')->with('type', 'success');
+            }else{
+                return redirect()-> back() ->with ('msg', 'Xóa bài viết thất bại.')->with('type', 'danger');
+            }
         }else{
-            return redirect()-> back() ->with ('msg', 'Xóa bài viết thất bại.')->with('type', 'danger');
+            abort('403');
         }
+
 
     }
 

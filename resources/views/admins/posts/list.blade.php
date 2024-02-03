@@ -96,14 +96,14 @@
                                 @foreach ($data as $key => $value)
                                     <tr>
                                         <td>{{$key + 1}}</td>
-                                        <td><img src="{{asset('uploads/' . $value->Image)}}" alt="" style="width: 200px;"></td>
-                                        <td>{{$value->Title}} </td>
+                                        <td><img src="{{asset('uploads/' . $value->image)}}" alt="" style="width: 200px;"></td>
+                                        <td>{{$value->title}} </td>
                                         <td>{{$value->name}}</td>
 
                                         <td>
                                 <span style="overflow: visible; position: relative; width: 125px;" class="d-flex">
-                                    <form action="{{route('admins.posts.detailPosts', ['id' => $value->PostsId])}}" method="get">
-                                        <input type="hidden" value="{{$value->PostsId}}" name="PostsId">
+                                    <form action="{{route('admins.posts.detailPosts', ['id' => $value->posts_id])}}" method="get">
+                                        <input type="hidden" value="{{$value->posts_id}}" name="PostsId">
                                         @csrf
                                     <button
                                         class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details"> <span
@@ -122,8 +122,8 @@
                                         </span>
                                     </button>
                                     </form>
-                                    <form action="{{route('admins.posts.updatePosts', ['id' => $value->PostsId])}}" method="get">
-                                        <input type="hidden" value="{{$value->PostsId}}" name="PostsId">
+                                    <form action="{{route('admins.posts.updatePosts', ['id' => $value->posts_id])}}" method="get">
+                                        <input type="hidden" value="{{$value->posts_id}}" name="PostsId">
                                         @csrf
                                     <button
                                         class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details"> <span
@@ -144,8 +144,9 @@
                                         </span>
                                     </button>
                                     </form>
+                                    @can('deletePosts')
                                     <form action="{{route('admins.posts.deletePosts')}}" method="post">
-                                        <input type="hidden" value="{{$value->PostsId}}" name="PostsId">
+                                        <input type="hidden" value="{{$value->posts_id}}" name="PostsId">
                                         @csrf
                                         <button type="submit"
                                            onclick="return confirm('Bạn chắc chắn muốn xóa bài viết này không? ')"
@@ -164,7 +165,7 @@
                                                     </g>
                                                 </svg> </span> </button>
                                     </form>
-
+                                    @endcan
                                 </span>
                                         </td>
                                     </tr>

@@ -9,12 +9,13 @@ class RoleUserModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'roleuser';
+    protected $table = 'roles';
 
-    protected $primaryKey = 'RoleId';
+    protected $primaryKey = 'role_id';
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'roleuserdetail','RoleId','UserId');
+        return $this->belongsToMany(User::class, 'details_role_user','role_id','user_id');
     }
+
 }

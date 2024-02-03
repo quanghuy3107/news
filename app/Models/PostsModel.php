@@ -10,29 +10,29 @@ class PostsModel extends Model
 {
     use HasFactory;
 
-    private $tableDb = 'Posts';
+    private $tableDb = 'posts';
     function addPosts($data = []){
         return DB::table($this->tableDb)->insert($data);
     }
 
     function getAllPosts(){
-        return DB::table($this->tableDb)->join('users', 'users.id', '=', 'posts.Author')->where('posts.is_deleted','0')->get();
+        return DB::table($this->tableDb)->join('users', 'users.id', '=', 'posts.author')->where('posts.is_deleted','0')->get();
     }
 
     function findPostsById($id = 0)
     {
         return DB::table($this->tableDb)
-                ->join('users', 'users.id', '=', 'posts.Author')
-                ->where('posts.PostsId',$id)
+                ->join('users', 'users.id', '=', 'posts.author')
+                ->where('posts.posts_id',$id)
                 ->first();
     }
 
     function updatePosts($id = 0, $data = []){
-        return DB::table($this->tableDb)->where('PostsId',$id)->update($data);
+        return DB::table($this->tableDb)->where('posts_id',$id)->update($data);
     }
 
     function deletePosts($id = 0)
     {
-        return DB::table($this->tableDb)->where('PostsId',$id)->update(['is_deleted' => '1']);
+        return DB::table($this->tableDb)->where('posts_id',$id)->update(['is_deleted' => '1']);
     }
 }

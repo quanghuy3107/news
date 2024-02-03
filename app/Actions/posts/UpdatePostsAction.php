@@ -21,11 +21,11 @@ class UpdatePostsAction
         $file->move(public_path('uploads'), $file_name);
         $id = $postsDTO->getPostsId();
         $data = [
-            'Title' => $postsDTO->getTitle(),
-            'Author' => $postsDTO->getAuthor(),
-            'Image' => $file_name,
-            'shortDescription' => $postsDTO->getShortDescription(),
-            'Content' => $postsDTO->getContent(),
+            'title' => $postsDTO->getTitle(),
+            'author' => $postsDTO->getAuthor(),
+            'image' => $file_name,
+            'short_description' => $postsDTO->getShortDescription(),
+            'content' => $postsDTO->getContent(),
             'updated_at' => $postsDTO->getUpdateAt(),
         ];
         return $this->postsModel->updatePosts($id, $data);

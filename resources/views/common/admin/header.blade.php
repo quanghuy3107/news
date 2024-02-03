@@ -135,7 +135,7 @@
                                 <span class="menu-text">Quản lý bài viết</span>
                             </a>
                         </li>
-
+                        @can('showUser')
                         <li class="menu-item" aria-haspopup="true">
                             <a href="{{route('admins.users.user')}}" class="menu-link">
                                 <span class="svg-icon menu-icon">
@@ -156,7 +156,7 @@
                                 <span class="menu-text">Quản lý người dùng</span>
                             </a>
                         </li>
-
+                        @endcan
                     </ul>
                     <!--end::Menu Nav-->
                 </div>

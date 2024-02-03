@@ -21,11 +21,11 @@ class CreateCommentAction
             $parentComment = $commentDTO->getParentComment();
         }
         $data = [
-            'Content' => $commentDTO->getContent(),
-            'UserId' => $commentDTO->getUserId(),
+            'content' => $commentDTO->getContent(),
+            'user_id' => $commentDTO->getUserId(),
             'created_at' => $commentDTO->getCreatedAt(),
-            'ParentCommentId' => $parentComment,
-            'PostsId' => $commentDTO->getPostsId()
+            'parent_comment_id' => $parentComment,
+            'posts_id' => $commentDTO->getPostsId()
         ];
         $this->commentModel->createComment($data);
     }

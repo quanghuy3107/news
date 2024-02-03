@@ -32,7 +32,7 @@ class GetCommentRequest extends FormRequest
     {
 
         return [
-            'PostsId' => ['required', Rule::exists('Posts', 'PostsId')],
+            'PostsId' => ['required', Rule::exists('posts', 'posts_id')],
         ];
     }
 

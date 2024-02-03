@@ -19,11 +19,11 @@ class CreatePostAction
         $file_name = md5(uniqid()) . '.' . $ext;
         $file->move(public_path('uploads'), $file_name);
         $data = [
-          'Title' => $postsDTO->getTitle(),
-          'Author' => $postsDTO->getAuthor(),
-          'Image' => $file_name,
-          'shortDescription' => $postsDTO->getShortDescription(),
-          'Content' => $postsDTO->getContent(),
+          'title' => $postsDTO->getTitle(),
+          'author' => $postsDTO->getAuthor(),
+          'image' => $file_name,
+          'short_description' => $postsDTO->getShortDescription(),
+          'content' => $postsDTO->getContent(),
           'created_at' => $postsDTO->getCreatedAt(),
         ];
             return $this->posts->addPosts($data);

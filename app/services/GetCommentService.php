@@ -29,21 +29,21 @@ class GetCommentService
     {
         $children = array();
         foreach ($comments as $comment) {
-            if ($comment->ParentCommentId == $parentId) {
+            if ($comment->parent_comment_id == $parentId) {
                 // Tạo một mảng mới chứa thông tin của comment
                 $commentInfo = array(
-                    'CommentId' => $comment->CommentId,
-                    'Content' => $comment->Content,
-                    'UserId' => $comment->UserId,
+                    'comment_id' => $comment->comment_id,
+                    'content' => $comment->content,
+                    'user_id' => $comment->user_id,
                     'created_at' => $comment->created_at,
-                    'ParentCommentId' => $comment->ParentCommentId,
-                    'PostsId' => $comment->PostsId,
-                    'Name' => $comment->name,
+                    'parent_comment_id' => $comment->parent_comment_id,
+                    'posts_id' => $comment->posts_id,
+                    'name' => $comment->name,
                     'level' => $level
                 );
 
                 // Gọi đệ quy để lấy thông tin của các comment con
-                $this->getComments($comments, $comment->CommentId, $level + 1, $children);
+                $this->getComments($comments, $comment->comment_id, $level + 1, $children);
 
                 // Nếu có comment con, thêm chúng vào mảng 'children'
                 if (!empty($children)) {

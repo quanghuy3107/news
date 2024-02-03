@@ -5,14 +5,14 @@
                 <div class='row'>
                     <div class='d-flex delete-comment justify-content-between'>
                         <div class='d-flex align-items-center'>
-                            <p class='name-user'><i class='fa-regular fa-user'></i>{{$comment['Name']}}:</p>
-                            <p class='content-comment'>{{$comment['Content']}}</p>
+                            <p class='name-user'><i class='fa-regular fa-user'></i>{{$comment['name']}}:</p>
+                            <p class='content-comment'>{{$comment['content']}}</p>
                         </div>
-                        @can('comment',$comment['UserId'])
+                        @can('comment',$comment['user_id'])
                         <div class="d-flex align-items-center">
                             <form  action="{{route('DeleteComment')}}" method="post">
                                 @csrf
-                                <input type="hidden" value="{{$comment['CommentId']}}" name="CommentId">
+                                <input type="hidden" value="{{$comment['comment_id']}}" name="CommentId">
                                 <input class="" type="submit" value="Xóa">
                             </form>
                         </div>
@@ -26,7 +26,7 @@
                             @csrf
                             <textarea name='Content' id='submit' cols='100%' rows='1'></textarea>
                             <input type='hidden' name='PostsId' value="{{$postsId}}">
-                            <input type='hidden' name='ParentId' value="{{$comment['CommentId']}}"><button type='submit' class='btn btn-primary'>Gửi</button>
+                            <input type='hidden' name='ParentId' value="{{$comment['comment_id']}}"><button type='submit' class='btn btn-primary'>Gửi</button>
                         </form>
                     </div>
                 </div>
