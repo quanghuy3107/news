@@ -4,6 +4,7 @@ namespace App\Features\users;
 
 use App\Actions\users\DeleteUserAction;
 use App\DTO\UserDTO;
+use App\DTO\users\DeleteUserDTO;
 
 class DeleteUserFeature
 {
@@ -14,17 +15,18 @@ class DeleteUserFeature
     {
     }
 
-    private UserDTO $userDTO;
-    public function setUserDTO(UserDTO $userDTO){
+    private DeleteUserDTO $userDTO;
+    public function setUserDTO(DeleteUserDTO $userDTO): void
+    {
         $this->userDTO = $userDTO;
     }
 
-    public function  getUserDTO()
+    public function getUserDTO() : DeleteUserDTO
     {
         return $this->userDTO;
     }
 
-    public function handle()
+    public function handle(): int
     {
         return $this->deleteUserAction->handel($this->getUserDTO());
     }

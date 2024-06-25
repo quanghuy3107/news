@@ -2,15 +2,32 @@
 
 namespace App\Http\Requests;
 
+use App\DTO\password_reset_tokens\CreatePasswordResetTokenDTO;
+use App\DTO\password_reset_tokens\FindTokenDTO;
 use App\DTO\UserDTO;
+use App\DTO\users\ChangePasswordUserDTO;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChangePasswordPostRequest extends FormRequest
 {
     public function __construct(
-        protected UserDTO $userDTO
+        protected ChangePasswordUserDTO $userDTO,
+        protected FindTokenDTO $findTokenDTO
     )
     {
+    }
+
+    public function authorize(): bool
+    {
+        $id = $this->route('id');
+        $user = User::find($id);
+
+        if($user !== null){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function rules(): array
@@ -22,7 +39,8 @@ class ChangePasswordPostRequest extends FormRequest
         ];
     }
 
-    public function messages(){
+    public function messages(): array
+    {
         return [
             // 'oldPassword.required' => 'Bạn chưa nhập :attribute.',
             'password.required' => 'Bạn chưa nhập :attribute.',
@@ -30,7 +48,7 @@ class ChangePasswordPostRequest extends FormRequest
         ];
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'password' => 'mật khẩu',
@@ -39,11 +57,16 @@ class ChangePasswordPostRequest extends FormRequest
         ];
     }
 
-    public function withValidator($validator)
+    public function withValidator($validator): void
     {
         $validator->after(function ($validator) {
             $data = $validator->getData();
-
+            if(!isset($data['password']) or !isset($data['confirmPassword'])){
+                $validator->errors()->add(
+                    'msg',
+                    'Vui lòng kiểm tra lại dữ liệu.'
+                ) ;
+            }
             if($data['password'] != $data['confirmPassword']){
                 $validator->errors()->add(
                     'confirmPassword',
@@ -56,19 +79,29 @@ class ChangePasswordPostRequest extends FormRequest
                     'Vui lòng kiểm tra lại dữ liệu.'
                 ) ;
             }else{
+                $id = $this->route('id');
+
                 $data = $validator->getData();
+                $data['id'] = $id;
                 $this->setDTO($data);
             }
         });
     }
 
-    public function setDTO($data){
+    public function setDTO($data): void
+    {
         $this->userDTO->setPassword($data['password']);
         $this->userDTO->setId($data['id']);
+        $this->findTokenDTO->setToken($this->route('token'));
     }
 
-    public function getDTO() :UserDTO
+    public function getDTO() :ChangePasswordUserDTO
     {
         return $this->userDTO->getUserDTO();
+    }
+
+    public function getTokenDTO() : FindTokenDTO
+    {
+        return $this->findTokenDTO->getFindToken();
     }
 }

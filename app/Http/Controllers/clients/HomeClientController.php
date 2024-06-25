@@ -14,12 +14,17 @@ class HomeClientController extends Controller
     {
     }
 
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         $title = "Trang chủ";
         $this->getPostsFeature->handle();
         $dataPosts = $this->getPostsFeature->getTransform();
-        return view('clients.home', compact('title', 'dataPosts'));
+        $firstPost = [];
+        if(!empty($dataPosts[0])){
+            $firstPost = $dataPosts[0];
+        }
+
+        return view('clients.home', compact('title', 'dataPosts','firstPost'));
     }
 
 }

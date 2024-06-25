@@ -2,7 +2,7 @@
 
 namespace App\Actions\posts;
 
-use App\DTO\PostsDTO;
+use App\DTO\posts\DetailPostsDTO;
 use App\Models\PostsModel;
 
 class FindPostsAction
@@ -11,7 +11,7 @@ class FindPostsAction
     {
     }
 
-    public function handle(PostsDTO $data)
+    public function handle(DetailPostsDTO $data)
     {
         $id = $data->getPostsId();
         return $this->postsModel->findPostsById($id);

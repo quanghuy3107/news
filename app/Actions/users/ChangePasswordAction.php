@@ -3,6 +3,7 @@
 namespace App\Actions\users;
 
 use App\DTO\UserDTO;
+use App\DTO\users\ChangePasswordUserDTO;
 use App\Models\User;
 
 class ChangePasswordAction
@@ -13,7 +14,7 @@ class ChangePasswordAction
     {
     }
 
-    public function handle(UserDTO $userDTO)
+    public function handle(ChangePasswordUserDTO $userDTO): int
     {
         $data = [
             'password' =>bcrypt($userDTO->getPassword()),

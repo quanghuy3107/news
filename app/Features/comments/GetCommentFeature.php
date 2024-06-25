@@ -4,6 +4,7 @@ namespace App\Features\comments;
 
 use App\Actions\comments\GetCommentAction;
 use App\DTO\CommentDTO;
+use App\DTO\comments\GetCommentDTO;
 use App\services\GetCommentService;
 use App\Transformers\CommentTransformer;
 
@@ -17,24 +18,24 @@ class GetCommentFeature
     {
     }
 
-    private CommentDTO $commentDTO;
+    private GetCommentDTO $commentDTO;
 
-    public function setCommentFeature(CommentDTO $commentDTO) : void
+    public function setCommentFeature(GetCommentDTO $commentDTO) : void
     {
         $this->commentDTO = $commentDTO;
     }
 
-    public function getCommentData() : CommentDTO
+    public function getCommentData() : GetCommentDTO
     {
         return $this->commentDTO;
     }
 
-    public function getTransform()
+    public function getTransform(): array
     {
         return $this->commentTransformer->getDataTransformer();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $dataComment =  $this->getCommentAction->handle($this->getCommentData());
         $this->getCommentService->setCommentData($dataComment);

@@ -6,7 +6,7 @@ use App\DTO\CommentDTO;
 
 class CommentTransformer
 {
-    private $dataComment;
+    private array $dataComment;
 
     public function setDataComment(array $commentDTO) : void
     {

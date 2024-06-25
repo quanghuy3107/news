@@ -3,6 +3,7 @@
 namespace App\Actions\comments;
 
 use App\DTO\CommentDTO;
+use App\DTO\comments\DeleteCommentDTO;
 use App\Models\CommentModel;
 
 class DeleteCommentAction
@@ -13,7 +14,7 @@ class DeleteCommentAction
     {
     }
 
-    public function handle(CommentDTO $commentDTO) : void
+    public function handle(DeleteCommentDTO $commentDTO) : void
     {
         $commentId = $commentDTO->getCommentId();
         $this->commentModel->softDeleteComment($commentId);

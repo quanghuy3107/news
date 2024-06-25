@@ -1,4 +1,4 @@
-@if(\Illuminate\Support\Facades\Gate::allows('hasRole','ADMIN'))
+@if(\Illuminate\Support\Facades\Gate::allows('hasRole','ADMIN') or \Illuminate\Support\Facades\Gate::allows('hasRole','SUPPERADMIN'))
 @include('common.admin.header-base')
 @include('common.admin.header')
 <div class="container">

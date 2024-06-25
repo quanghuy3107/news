@@ -3,6 +3,7 @@
 namespace App\Features\posts;
 
 use App\Actions\posts\CreatePostAction;
+use App\DTO\posts\CreatePostsDTO;
 use App\DTO\PostsDTO;
 
 class CreatePostFeature
@@ -13,19 +14,19 @@ class CreatePostFeature
     {
 
     }
-    private PostsDTO $postDTO;
+    private CreatePostsDTO $postDTO;
 
-    public function getPostDTO(): PostsDTO
+    public function getPostDTO(): CreatePostsDTO
     {
         return $this->postDTO;
     }
 
-    public function setPostDTO(PostsDTO $postDTO): void
+    public function setPostDTO(CreatePostsDTO $postDTO): void
     {
         $this->postDTO = $postDTO;
     }
 
-    public function handle()
+    public function handle(): bool
     {
         return $this->actionPost->handle($this->getPostDTO());
     }

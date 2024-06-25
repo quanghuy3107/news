@@ -18,7 +18,7 @@ class CommentController extends Controller
     {
     }
 
-    public function addComment(CreateCommentRequest $formRequest)
+    public function addComment(CreateCommentRequest $formRequest): \Illuminate\Http\RedirectResponse
     {
         $dto = $formRequest->getDTO();
 
@@ -27,7 +27,7 @@ class CommentController extends Controller
         return redirect()->back();
     }
 
-    public function deleteComment(DeleteCommentRequest $formRequest)
+    public function deleteComment(DeleteCommentRequest $formRequest): \Illuminate\Http\RedirectResponse
     {
         $dto = $formRequest->getDTO();
         $this->deleteCommentFeature->setCommentDTO($dto);

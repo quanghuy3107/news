@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\admins\posts;
 
+use App\DTO\posts\DeletePostsDTO;
 use App\DTO\PostsDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -10,7 +11,7 @@ use Illuminate\Validation\Validator;
 class DeletePostsRequest extends FormRequest
 {
 
-    public function  __construct(private PostsDTO $postsDTO)
+    public function  __construct(private DeletePostsDTO $postsDTO)
     {
 
     }
@@ -28,7 +29,7 @@ class DeletePostsRequest extends FormRequest
     {
 
         return [
-            'PostsId' => ['required', Rule::exists('posts', 'posts_id')],
+            'posts_id' => ['required', Rule::exists('posts', 'posts_id')],
         ];
     }
 
@@ -37,6 +38,14 @@ class DeletePostsRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
+                $data = $validator->getData();
+                if(!isset($data['posts_id'])
+                ){
+                    $validator->errors()->add(
+                        'msg',
+                        'Vui lòng kiểm tra lại dữ liệu.'
+                    ) ;
+                }
                 if ($validator->errors()->count() > 0) {
                     $validator->errors()->add(
                         'msg',
@@ -52,12 +61,13 @@ class DeletePostsRequest extends FormRequest
         ];
     }
 
-    public function setDTO($data){
-        $this->postsDTO->setPostsId($data['PostsId']);
+    public function setDTO(array $data): void
+    {
+        $this->postsDTO->setPostsId($data['posts_id']);
 
     }
 
-    public function getDTO() : PostsDTO
+    public function getDTO() : DeletePostsDTO
     {
         return $this->postsDTO->getDTO();
     }

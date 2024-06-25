@@ -4,6 +4,7 @@ namespace App\Features\comments;
 
 use App\Actions\comments\DeleteCommentAction;
 use App\DTO\CommentDTO;
+use App\DTO\comments\DeleteCommentDTO;
 
 class DeleteCommentFeature
 {
@@ -13,14 +14,14 @@ class DeleteCommentFeature
     {
     }
 
-    private CommentDTO $commentDTO;
+    private DeleteCommentDTO $commentDTO;
 
-    public function setCommentDTO(CommentDTO $commentDTO) : void
+    public function setCommentDTO(DeleteCommentDTO $commentDTO) : void
     {
         $this->commentDTO = $commentDTO;
     }
 
-    public function getCommentDTO() : CommentDTO
+    public function getCommentDTO() : DeleteCommentDTO
     {
         return $this->commentDTO;
     }

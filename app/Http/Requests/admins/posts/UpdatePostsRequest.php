@@ -2,16 +2,18 @@
 
 namespace App\Http\Requests\admins\posts;
 
-use App\DTO\PostsDTO;
+use App\DTO\posts\UpdatePostsDTO;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
+use League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension;
 
 class UpdatePostsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function  __construct(private PostsDTO $postsDTO)
+    public function  __construct(private UpdatePostsDTO $postsDTO)
     {
 
     }
@@ -30,31 +32,30 @@ class UpdatePostsRequest extends FormRequest
     {
 
         return [
-            'Title' => 'required|max:255',
-            'Image' => 'required',
-            'ShortDescription' => 'required',
-            'Content' => 'required'
+            'title' => 'required|max:255',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'short_description' => 'required',
+            'content' => 'required'
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
-            'Title.required' => 'Bạn chưa nhập thông tin :attribute.',
-            'Title.max' => ':attribute không được quá 255 ký tự.',
-            'Image.required' => 'Bạn chưa nhập thông tin :attribute.',
-            'ShortDescription.required' => 'Bạn chưa nhập thông tin :attribute.',
-            'Content.required' => 'Bạn chưa nhập thông tin :attribute.',
+            'title.required' => 'Bạn chưa nhập thông tin :attribute.',
+            'title.max' => ':attribute không được quá 255 ký tự.',
+            'short_description.required' => 'Bạn chưa nhập thông tin :attribute.',
+            'content.required' => 'Bạn chưa nhập thông tin :attribute.',
         ];
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [
-            'Title' => 'tiêu đề',
-            'Image' => 'ảnh',
-            'ShortDescription' => 'mô tả ngắn',
-            'Content' => 'nội dung',
+            'title' => 'tiêu đề',
+            'image' => 'ảnh',
+            'short_description' => 'mô tả ngắn',
+            'content' => 'nội dung',
         ];
     }
 
@@ -62,6 +63,13 @@ class UpdatePostsRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
+                $data = $validator->getData();
+                if(!isset($data['posts_id']) or !isset($data['title']) or !isset($data['author']) or !isset($data['short_description']) or !isset($data['content'])){
+                    $validator->errors()->add(
+                        'msg',
+                        'Vui lòng kiểm tra lại dữ liệu.'
+                    ) ;
+                }
                 if ($validator->errors()->count() > 0) {
                     $validator->errors()->add(
                         'msg',
@@ -69,7 +77,6 @@ class UpdatePostsRequest extends FormRequest
                     );
                 }
                 else{
-                    $data = $validator->getData();
                     $this->setDTO($data);
                 }
 
@@ -77,18 +84,23 @@ class UpdatePostsRequest extends FormRequest
         ];
     }
 
-    public function setDTO($data){
-        $this->postsDTO->setPostsId($data['PostsId']);
-        $this->postsDTO->setTitle($data['Title']);
-        $this->postsDTO->setAuthor(1);
-        $this->postsDTO->setImage($data['Image']);
-        $this->postsDTO->setShortDescription($data['ShortDescription']);
-        $this->postsDTO->setContent($data['Content']);
+    public function setDTO($data): void
+    {
+        $this->postsDTO->setPostsId($data['posts_id']);
+        $this->postsDTO->setTitle($data['title']);
+        $this->postsDTO->setAuthor($data['author']);
+        if(isset($data['image'])){
+            $this->postsDTO->setImage($data['image']);
+        }else{
+            $this->postsDTO->setImage((object)NULL);
+        }
+        $this->postsDTO->setShortDescription($data['short_description']);
+        $this->postsDTO->setContent($data['content']);
         $this->postsDTO->setUpdateAt(date('Y-m-d H:i:s'));
 
     }
 
-    public function getDTO() :PostsDTO
+    public function getDTO() :UpdatePostsDTO
     {
         return $this->postsDTO->getDTO();
     }

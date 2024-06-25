@@ -15,12 +15,12 @@ class GetPostsFeature
 
     }
 
-    public function getTransform()
+    public function getTransform(): object
     {
         return $this->postTransformer->transformer();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $dataPosts =  $this->actionPost->handle();
         $this->postTransformer->setData($dataPosts);

@@ -50,8 +50,8 @@
                                     <label>
                                         <h4>Tiêu đề bài viết</h4>
                                     </label>
-                                    <input type="text" name="Title" class="form-control" value="{{old('Title') ?? $data->title}}" placeholder="Tiêu đề bài viết" />
-                                    @error('Title')
+                                    <input type="text" name="title" class="form-control" value="{{old('title') ?? $data->title}}" placeholder="Tiêu đề bài viết" />
+                                    @error('title')
                                     <p style="color: red">{{$message}}</p>
 
                                     @enderror
@@ -60,8 +60,8 @@
                                     <label>
                                         <h4>Ảnh</h4>
                                     </label>
-                                    <input type="file" name="Image" class="form-control" />
-                                    @error('Image')
+                                    <input type="file" name="image" class="form-control" />
+                                    @error('image')
                                     <p style="color: red">{{$message}}</p>
 
                                     @enderror
@@ -70,8 +70,8 @@
                                     <label>
                                         <h4>Mô tả ngắn</h4>
                                     </label>
-                                    <input type="text" name="ShortDescription" class="form-control" value="{{old('ShortDescription') ?? $data->short_description}}" placeholder="Mô tả ngắn" />
-                                    @error('ShortDescription')
+                                    <input type="text" name="short_description" class="form-control" value="{{old('short_description') ?? $data->short_description}}" placeholder="Mô tả ngắn" />
+                                    @error('short_description')
                                     <p style="color: red">{{$message}}</p>
 
                                     @enderror
@@ -85,9 +85,9 @@
                                     <label>
                                         <h4>Nội dung bài viết</h4>
                                     </label>
-                                    <div id="summernote">{!!old('Content') ?? $data->content !!}</div>
-                                    <input type="hidden" id="content" name="Content">
-                                    @error('Content')
+                                    <div id="summernote">{!!old('content') ?? $data->content !!}</div>
+                                    <input type="hidden" id="content" name="content">
+                                    @error('content')
                                     <p style="color: red">{{$message}}</p>
 
                                     @enderror
@@ -98,7 +98,8 @@
                     </div>
                     <div class="card-footer">
                         @csrf
-                        <input type="hidden" value="{{$data->posts_id}}" name="PostsId" />
+                        <input type="hidden" value="{{$data->posts_id}}" name="posts_id" />
+                        <input type="hidden" value="{{Auth::user()->id}}" name="author" />
                         <button type="submit" class="btn btn-primary mr-2">Thay đổi</button>
                         <button type="reset" class="btn btn-secondary">Làm lại</button>
                         <a href="{{route('admins.posts.posts')}}" class="btn btn-default">Quay về</a>

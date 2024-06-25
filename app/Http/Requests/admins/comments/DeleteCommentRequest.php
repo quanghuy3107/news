@@ -3,14 +3,16 @@
 namespace App\Http\Requests\admins\comments;
 
 use App\DTO\CommentDTO;
+use App\DTO\comments\DeleteCommentDTO;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 
 class DeleteCommentRequest extends FormRequest
 {
     public function __construct(
-        protected CommentDTO $commentDTO
+        protected DeleteCommentDTO $commentDTO
     )
     {
     }
@@ -41,6 +43,13 @@ class DeleteCommentRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
+                $data = $validator->getData();
+                if(!isset($data['CommentId'])){
+                    $validator->errors()->add(
+                        'msg',
+                        'Vui lòng kiểm tra lại dữ liệu.'
+                    ) ;
+                }
                 if ($validator->errors()->count() > 0) {
                     $validator->errors()->add(
                         'msg',
@@ -48,7 +57,6 @@ class DeleteCommentRequest extends FormRequest
                     );
                 }
                 else{
-                    $data = $validator->getData();
                     $this->setDTO($data);
                 }
 
@@ -61,7 +69,7 @@ class DeleteCommentRequest extends FormRequest
         $this->commentDTO->setCommentId($data['CommentId']);
     }
 
-    public function getDTO() : CommentDTO
+    public function getDTO() : DeleteCommentDTO
     {
         return $this->commentDTO;
     }

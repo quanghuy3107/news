@@ -2,6 +2,7 @@
 
 namespace App\Actions\posts;
 
+use App\DTO\posts\DeletePostsDTO;
 use App\DTO\PostsDTO;
 use App\Models\PostsModel;
 
@@ -13,7 +14,7 @@ class DeletePostsAction
     {
     }
 
-    public function handel(PostsDTO $postsDTO){
+    public function handel(DeletePostsDTO $postsDTO){
         $id = $postsDTO->getPostsId();
         return $this->postsModel->deletePosts($id);
     }

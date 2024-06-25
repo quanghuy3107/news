@@ -4,6 +4,7 @@ namespace App\Features\comments;
 
 use App\Actions\comments\CreateCommentAction;
 use App\DTO\CommentDTO;
+use App\DTO\comments\CreateCommentDTO;
 
 class CreateCommentFeature
 {
@@ -13,18 +14,18 @@ class CreateCommentFeature
     {
     }
 
-    private CommentDTO $commentDTO;
-    public function setComment(CommentDTO $commentDTO) : void
+    private CreateCommentDTO $commentDTO;
+    public function setComment(CreateCommentDTO $commentDTO) : void
     {
         $this->commentDTO = $commentDTO;
     }
 
-    public function getComment() : CommentDTO
+    public function getComment() : CreateCommentDTO
     {
         return $this->commentDTO;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->createCommentAction->handle($this->getComment());
     }

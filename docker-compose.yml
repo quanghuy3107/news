@@ -12,4 +12,43 @@ services:
             - "8999:80"
         volumes:
             - .:/var/www/html
+        depends_on:
+            - db
+            - mongo
+            - redis
         restart: on-failure
+    db:
+        image: mysql:latest
+        container_name: mysql-backend
+        ports:
+            - "3307:3307"
+        volumes:
+            - ./docker/db_data:/var/lib/mysql
+            - .:/test-app
+        environment:
+            MYSQL_DATABASE: testdb
+            MYSQL_USER: user_testdb
+            MYSQL_PASSWORD: password
+    redis:
+        image: redis:latest
+        restart: always
+        ports:
+            - "6380:6379"
+        volumes:
+            - ./docker/redis:/data
+            - ./docker/redis.conf:/usr/local/etc/redis/redis.conf
+        environment:
+            - REDIS_PASSWORD=my-password
+            - REDIS_PORT=6380
+            - REDIS_DATABASES=16
+    mongo:
+        image: mongo
+        restart: always
+        environment:
+            MONGO_INITDB_DATABASE: dsds
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./docker/mongodb:/data/db

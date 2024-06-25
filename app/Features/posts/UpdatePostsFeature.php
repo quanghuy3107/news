@@ -3,6 +3,7 @@
 namespace App\Features\posts;
 
 use App\Actions\posts\UpdatePostsAction;
+use App\DTO\posts\UpdatePostsDTO;
 use App\DTO\PostsDTO;
 
 class UpdatePostsFeature
@@ -13,19 +14,19 @@ class UpdatePostsFeature
     {
     }
 
-    private PostsDTO $postDTO;
+    private UpdatePostsDTO $postDTO;
 
-    public function getPostDTO(): PostsDTO
+    public function getPostDTO(): UpdatePostsDTO
     {
         return $this->postDTO;
     }
 
-    public function setPostDTO(PostsDTO $postDTO): void
+    public function setPostDTO(UpdatePostsDTO $postDTO): void
     {
         $this->postDTO = $postDTO;
     }
 
-    public function handle()
+    public function handle(): int
     {
         return $this->actionPosts->handle($this->getPostDTO());
     }

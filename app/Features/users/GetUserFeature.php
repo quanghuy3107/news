@@ -14,11 +14,12 @@ class GetUserFeature
     {
     }
 
-    public function getTransformer(){
+    public function getTransformer(): object
+    {
         return $this->userTransformer->transformer();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $data = $this->userAction->handle();
         $this->userTransformer->setData($data);

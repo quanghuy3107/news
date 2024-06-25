@@ -17,7 +17,7 @@ class LoginController extends Controller
     {
     }
 
-    public function login()
+    public function login(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         $title = 'Trang đăng nhập';
         return view('clients.login',compact('title'));
@@ -31,9 +31,11 @@ class LoginController extends Controller
         if($status){
             if(Auth::user()->roles()->pluck('role_code')->contains('ADMIN')){
                 return redirect()->route('admins.index');
-//                dd('admin');
-            }else
-            {
+            }
+            else if(Auth::user()->roles()->pluck('role_code')->contains('SUPPERADMIN')){
+                return redirect()->route('admins.index');
+            }
+            else {
 //                dd('user');
                 return redirect()->route('/');
             }

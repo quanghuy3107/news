@@ -4,6 +4,7 @@ namespace App\Http\Requests\admins\users;
 
 
 use App\DTO\UserDTO;
+use App\DTO\users\DeleteUserDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -11,7 +12,7 @@ use Illuminate\Validation\Validator;
 class DeleteUserRequest extends FormRequest
 {
     public function __construct(
-        protected UserDTO $userDTO
+        protected DeleteUserDTO $userDTO
     )
     {
     }
@@ -40,6 +41,13 @@ class DeleteUserRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
+                $data = $validator->getData();
+                if(!isset($data['UserId'])){
+                    $validator->errors()->add(
+                        'msg',
+                        'Vui lòng kiểm tra lại dữ liệu.'
+                    ) ;
+                }
                 if ($validator->errors()->count() > 0) {
                     $validator->errors()->add(
                         'msg',
@@ -55,12 +63,12 @@ class DeleteUserRequest extends FormRequest
         ];
     }
 
-    public function setDTO($data){
+    public function setDTO(array $data){
         $this->userDTO->setId($data['UserId']);
 
     }
 
-    public function getDTO() :UserDTO
+    public function getDTO() : DeleteUserDTO
     {
         return $this->userDTO->getUserDTO();
     }

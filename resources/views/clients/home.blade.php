@@ -5,44 +5,54 @@
 @section('content')
 
     <div class="container main">
+
         <div class="row">
+
             <div class="col-lg-9 col-md-12">
+                @if(!empty($firstPost))
                 <div class="row p-4" style="border-bottom: 1px solid #ccc;">
                     <div class="col-lg-8 col-md-12">
-                        <img src="{{asset('uploads/' . $dataPosts[0]->image)}}" alt="" style="width: 100%;">
+                        <img src="{{asset('uploads/' . $firstPost->image)}}" alt="" style="width: 100%;">
                     </div>
                     <div class="col-lg-4 col-md-12">
-                        <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[0]->posts_id])}}">
-                            <h3>{{$dataPosts[0]->title}}</h3>
+                        <a class="sub-link" href="{{route('clients.detail', ['id' => $firstPost->posts_id])}}">
+                            <h3>{{$firstPost->title}}</h3>
                         </a>
-                        <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[0]->posts_id])}}">
-                            <p>{{$dataPosts[0]->short_description}}</p>
+                        <a class="sub-link" href="{{route('clients.detail', ['id' => $firstPost->posts_id])}}">
+                            <p>{{$firstPost->short_description}}</p>
                         </a>
 
                     </div>
                 </div>
-                <div class="row p-4" style="border-bottom: 1px solid #ccc;">
-                    <div class="col-lg-8 col-md-12">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <div >
-                                    <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[1]->posts_id])}}"><img src="{{asset('uploads/' . $dataPosts[1]->image)}}" alt="" style="width: 100%;"></a>
-                                </div>
-                                <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[1]->posts_id])}}">
-                                    <p class="sub-text">{{$dataPosts[1]->title}}</p>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div>
-                                    <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[2]->posts_id])}}"><img src="{{asset('uploads/' . $dataPosts[2]->image)}}" alt="" style="width: 100%;"></a>
-                                </div>
-                                <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[2]->posts_id])}}">
-                                    <p class="sub-text">{{$dataPosts[2]->title}}</p>
-                                </a>
-                            </div>
-                        </div>
+                @endif
 
-                    </div>
+                <div class="row p-4" style="border-bottom: 1px solid #ccc;">
+
+                        <div class="col-lg-8 col-md-12">
+                            <div class="row">
+                                @if(!empty($dataPosts[1]))
+                                <div class="col-md-6 col-sm-12">
+                                    <div >
+                                        <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[1]->posts_id])}}"><img src="{{asset('uploads/' . $dataPosts[1]->image)}}" alt="" style="width: 100%;"></a>
+                                    </div>
+                                    <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[1]->posts_id])}}">
+                                        <p class="sub-text">{{$dataPosts[1]->title}}</p>
+                                    </a>
+                                </div>
+                                @endif
+                                @if(!empty($dataPosts[2]))
+                                <div class="col-md-6 col-sm-12">
+                                    <div>
+                                        <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[2]->posts_id])}}"><img src="{{asset('uploads/' . $dataPosts[2]->image)}}" alt="" style="width: 100%;"></a>
+                                    </div>
+                                    <a class="sub-link" href="{{route('clients.detail', ['id' => $dataPosts[2]->posts_id])}}">
+                                        <p class="sub-text">{{$dataPosts[2]->title}}</p>
+                                    </a>
+                                </div>
+                                    @endif
+                            </div>
+
+                        </div>
 
                     <div class="col-lg-4 col-md-12">
                         <p class="mindset">Góc nhìn</p>
@@ -57,35 +67,26 @@
                 <img src="{{asset('uploads/qc.png')}}" alt="" style="width: 100%;">
             </div>
         </div>
+
         <div class="row remarkable">
             <div class="row">
                 <p class="attention">Đáng chú ý</p>
             </div>
+
             <div class="row sub-remarkable ">
-                <div class="col-lg-3 col-md-6 col-sm-12 p-4">
-                    <a href=""><img src="{{asset('uploads/z5095812137999-e33113e5cdcfea3-4036-6977-1705921668.jpg')}}" alt=""></a>
-                    <a href="">
-                        <p>Romania muốn thành cửa ngõ cho hàng hóa Việt Nam vào châu Âu</p>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 p-4">
-                    <a href=""><img src="{{asset('uploads/z5095812137999-e33113e5cdcfea3-4036-6977-1705921668.jpg')}}" alt=""></a>
-                    <a href="">
-                        <p>Romania muốn thành cửa ngõ cho hàng hóa Việt Nam vào châu Âu</p>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 p-4">
-                    <a href=""><img src="{{asset('uploads/z5095812137999-e33113e5cdcfea3-4036-6977-1705921668.jpg')}}" alt=""></a>
-                    <a href="">
-                        <p>Romania muốn thành cửa ngõ cho hàng hóa Việt Nam vào châu Âu</p>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 p-4">
-                    <a href=""><img src="{{asset('uploads/z5095812137999-e33113e5cdcfea3-4036-6977-1705921668.jpg')}}" alt=""></a>
-                    <a href="">
-                        <p>Romania muốn thành cửa ngõ cho hàng hóa Việt Nam vào châu Âu</p>
-                    </a>
-                </div>
+                @if(!empty($dataPosts))
+                    @for($i = 0;$i < 4 ; $i++)
+                        @if(!empty($dataPosts[$i]))
+                            <div class="col-lg-3 col-md-6 col-sm-12 p-4">
+                                <a href="{{route('clients.detail', ['id' => $dataPosts[$i]->posts_id])}}"><img src="{{asset('uploads/'.$dataPosts[$i]->image)}}" alt=""></a>
+                                <a href="{{route('clients.detail', ['id' => $dataPosts[$i]->posts_id])}}">
+                                    <p>{{$dataPosts[$i]->title}}</p>
+                                </a>
+                            </div>
+                        @endif
+
+                    @endfor
+                @endif
             </div>
         </div>
 

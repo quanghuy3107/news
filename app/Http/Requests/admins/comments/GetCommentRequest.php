@@ -3,6 +3,7 @@
 namespace App\Http\Requests\admins\comments;
 
 use App\DTO\CommentDTO;
+use App\DTO\comments\GetCommentDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -10,7 +11,7 @@ use Illuminate\Validation\Validator;
 class GetCommentRequest extends FormRequest
 {
     public function __construct(
-        protected CommentDTO $commentDTO
+        protected GetCommentDTO $commentDTO
     )
     {
     }
@@ -41,6 +42,13 @@ class GetCommentRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
+                $data = $validator->getData();
+                if(!isset($data['PostsId'])){
+                    $validator->errors()->add(
+                        'msg',
+                        'Vui lòng kiểm tra lại dữ liệu.'
+                    ) ;
+                }
                 if ($validator->errors()->count() > 0) {
                     $validator->errors()->add(
                         'msg',
@@ -61,7 +69,7 @@ class GetCommentRequest extends FormRequest
         $this->commentDTO->setPostsId($data['PostsId']);
     }
 
-    public function getDTO() : CommentDTO
+    public function getDTO() : GetCommentDTO
     {
         return $this->commentDTO;
     }

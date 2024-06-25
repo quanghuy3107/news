@@ -4,13 +4,14 @@ namespace App\Http\Requests;
 
 use App\DTO\PostsDTO;
 use App\DTO\UserDTO;
+use App\DTO\users\LoginUserDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
 class LoginRequest extends FormRequest
 {
     public function __construct(
-        protected UserDTO $userDTO
+        protected LoginUserDTO $userDTO
     )
     {
     }
@@ -36,7 +37,7 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'email.required' => 'Bạn chưa nhập thông tin :attribute.',
@@ -45,7 +46,7 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'email' => 'email',
@@ -57,6 +58,13 @@ class LoginRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
+                $data = $validator->getData();
+                if(!isset($data['email']) or !isset($data['password'])){
+                    $validator->errors()->add(
+                        'msg',
+                        'Vui lòng kiểm tra lại dữ liệu.'
+                    ) ;
+                }
                 if ($validator->errors()->count() > 0) {
                     $validator->errors()->add(
                         'msg',
@@ -72,13 +80,14 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function setDTO($data){
+    public function setDTO(array $data) : void
+    {
         $this->userDTO->setEmail($data['email']);
         $this->userDTO->setPassword($data['password']);
 
     }
 
-    public function getDTO() :UserDTO
+    public function getDTO() :LoginUserDTO
     {
         return $this->userDTO->getUserDTO();
     }

@@ -4,14 +4,14 @@ namespace App\Transformers;
 
 class UserTransformer
 {
-    private $dataPost;
+    private object $dataPost;
 
-    public function setData($dataPost)
+    public function setData(object $dataPost) : void
     {
         $this->dataPost = $dataPost;
     }
 
-    public function transformer()
+    public function transformer() : object
     {
         return $this->dataPost;
     }

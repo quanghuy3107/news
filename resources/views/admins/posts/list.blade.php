@@ -28,6 +28,7 @@
                                 <span class="d-block text-muted pt-2 font-size-sm">thông tin các bài viết</span>
                             </h3>
                         </div>
+                        @can('createPosts')
                         <div class="card-toolbar">
                             <!--begin::Button-->
                             <a href="{{route('admins.posts.addPosts')}}" class="btn btn-primary font-weight-bolder">
@@ -44,6 +45,7 @@
                         </span>Thêm bài viết mới</a>
                             <!--end::Button-->
                         </div>
+                        @endcan
                     </div>
                     <div class="card-body">
                         <!--begin: Search Form-->
@@ -122,6 +124,7 @@
                                         </span>
                                     </button>
                                     </form>
+                                    @can('updatePosts')
                                     <form action="{{route('admins.posts.updatePosts', ['id' => $value->posts_id])}}" method="get">
                                         <input type="hidden" value="{{$value->posts_id}}" name="PostsId">
                                         @csrf
@@ -144,9 +147,10 @@
                                         </span>
                                     </button>
                                     </form>
+                                    @endcan
                                     @can('deletePosts')
                                     <form action="{{route('admins.posts.deletePosts')}}" method="post">
-                                        <input type="hidden" value="{{$value->posts_id}}" name="PostsId">
+                                        <input type="hidden" value="{{$value->posts_id}}" name="posts_id">
                                         @csrf
                                         <button type="submit"
                                            onclick="return confirm('Bạn chắc chắn muốn xóa bài viết này không? ')"

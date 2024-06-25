@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admins;
 
+use App\Features\comments\GetCommentFeature;
 use App\Features\posts\CreatePostFeature;
 use App\Features\posts\DeletePostsFeature;
 use App\Features\posts\FindPostsFeature;
@@ -12,6 +13,7 @@ use App\Http\Requests\admins\posts\CreatePostsRequest;
 use App\Http\Requests\admins\posts\DeletePostsRequest;
 use App\Http\Requests\admins\posts\FindPostsRequest;
 use App\Http\Requests\admins\posts\UpdatePostsRequest;
+use App\Http\Requests\clients\comments\FindCommentClientRequest;
 use Illuminate\Support\Facades\Gate;
 
 class PostsController extends Controller
@@ -21,46 +23,67 @@ class PostsController extends Controller
         protected GetPostsFeature $getPostFeature,
         protected FindPostsFeature $findPostsFeature,
         protected UpdatePostsFeature $updatePostsFeature,
-        protected DeletePostsFeature $deletePostsFeature
+        protected DeletePostsFeature $deletePostsFeature,
+        protected GetCommentFeature $getCommentFeature
     )
     {
 
     }
-    public function index(){
+    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        if(Gate::allows('showPosts')){
         $title = "Trang bài viết";
         $this->getPostFeature->handle();
         $data = $this->getPostFeature->getTransform();
         return view('admins.posts.list', compact('title', 'data'));
+        }else{
+            abort('403');
+        }
     }
 
-    public function detail(FindPostsRequest $formRequest)
+    public function detail(FindPostsRequest $formRequest,FindCommentClientRequest $findCommentClientRequest): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         $title = "Trang chi tiết";
         $dto = $formRequest->getDTO();
         $this->findPostsFeature->setPostsDTO($dto);
         $this->findPostsFeature->handle();
         $dataPosts = $this->findPostsFeature->getTransform();
-        return view('admins.posts.detail', compact('title','dataPosts'));
+
+        $dtoComment = $findCommentClientRequest->getDTO();
+        $this->getCommentFeature->setCommentFeature($dtoComment);
+        $this->getCommentFeature->handle();
+        $dataComment = $this->getCommentFeature->getTransform();
+        return view('admins.posts.detail', compact('title','dataPosts','dataComment'));
     }
 
-    public function addPosts(){
+    public function addPosts(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        if(Gate::allows('createPosts')){
         $title = "Trang thêm bài viết";
         return view('admins.posts.add', compact('title'));
+        }else{
+            abort('403');
+        }
     }
 
-    public function addPostsPost(CreatePostsRequest $formRequest){
-        $dto = $formRequest->getDTO();
-        $this->createPostFeature->setPostDTO($dto);
-        $status = $this->createPostFeature->handle();
-        if($status){
-            return redirect()-> back() ->with ('msg', 'Thêm bài viết thành công.')->with('type', 'success');
+    public function addPostsPost(CreatePostsRequest $formRequest): \Illuminate\Http\RedirectResponse
+    {
+        if(Gate::allows('createPosts')){
+            $dto = $formRequest->getDTO();
+            $this->createPostFeature->setPostDTO($dto);
+            $status = $this->createPostFeature->handle();
+            if($status){
+                return redirect()-> back() ->with ('msg', 'Thêm bài viết thành công.')->with('type', 'success');
+            }else{
+                return redirect()-> back() ->with ('msg', 'Thêm bài viết thất bại.')->with('type', 'danger');
+            }
         }else{
-            return redirect()-> back() ->with ('msg', 'Thêm bài viết thất bại.')->with('type', 'danger');
+            abort('403');
         }
     }
 
     public function deletePosts(DeletePostsRequest $formRequest){
-        if(Gate::allows('deleteUser')){
+        if(Gate::allows('deletePosts')){
             $dto = $formRequest->getDTO();
             $this->deletePostsFeature->setPostsDTO($dto);
             $status = $this->deletePostsFeature->handle();
@@ -76,7 +99,7 @@ class PostsController extends Controller
 
     }
 
-    public function updatePosts(FindPostsRequest $formRequest)
+    public function updatePosts(FindPostsRequest $formRequest): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
         $title = "Trang update bài viết";
         $dto = $formRequest->getDTO();
@@ -90,14 +113,19 @@ class PostsController extends Controller
         }
     }
 
-    public function updatePostsPost(UpdatePostsRequest $formRequest){
-        $dto = $formRequest->getDTO();
-        $this->updatePostsFeature->setPostDTO($dto);
-        $status = $this->updatePostsFeature->handle();
-        if($status){
-            return redirect()-> back() ->with ('msg', 'Chỉnh sửa bài viết thành công.')->with('type', 'success');
+    public function updatePostsPost(UpdatePostsRequest $formRequest): \Illuminate\Http\RedirectResponse
+    {
+        if(Gate::allows('createPosts')){
+            $dto = $formRequest->getDTO();
+            $this->updatePostsFeature->setPostDTO($dto);
+            $status = $this->updatePostsFeature->handle();
+            if($status){
+                return redirect()-> back() ->with ('msg', 'Chỉnh sửa bài viết thành công.')->with('type', 'success');
+            }else{
+                return redirect()-> back() ->with ('msg', 'Chỉnh sửa bài viết thất bại.')->with('type', 'danger');
+            }
         }else{
-            return redirect()-> back() ->with ('msg', 'Chỉnh sửa bài viết thất bại.')->with('type', 'danger');
+            abort('403');
         }
     }
 }

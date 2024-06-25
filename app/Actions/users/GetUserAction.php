@@ -12,7 +12,7 @@ class GetUserAction
     {
     }
 
-    public function handle()
+    public function handle(): \Illuminate\Support\Collection
     {
         return $this->user->getUser();
     }

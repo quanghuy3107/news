@@ -3,6 +3,7 @@
 namespace App\Http\Requests\admins\comments;
 
 use App\DTO\CommentDTO;
+use App\DTO\comments\CreateCommentDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -11,7 +12,7 @@ use Illuminate\Validation\Validator;
 class CreateCommentRequest extends FormRequest
 {
     public function __construct(
-        protected CommentDTO $commentDTO
+        protected CreateCommentDTO $commentDTO
     )
     {
     }
@@ -36,14 +37,14 @@ class CreateCommentRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'Content.required' => 'Bạn chưa nhập thông tin :attribute.',
         ];
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'Content' => 'nội dung',
@@ -54,7 +55,8 @@ class CreateCommentRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
-                if(!Auth::check()){
+                $data = $validator->getData();
+                if(!Auth::check() or !isset($data['PostsId']) or !isset($data['Content'])){
                     $validator->errors()->add(
                         'msg',
                         'Vui lòng kiểm tra lại dữ liệu.'
@@ -67,7 +69,6 @@ class CreateCommentRequest extends FormRequest
                     );
                 }
                 else{
-                    $data = $validator->getData();
                     $this->setDTO($data);
                 }
 
@@ -75,7 +76,7 @@ class CreateCommentRequest extends FormRequest
         ];
     }
 
-    public function setDTO($data) : void
+    public function setDTO(array $data) : void
     {
         if(isset($data['ParentId'])){
             $this->commentDTO->setParentComment($data['ParentId']);
@@ -86,7 +87,7 @@ class CreateCommentRequest extends FormRequest
         $this->commentDTO->setCreatedAt(date('Y-m-d H:i:s'));
     }
 
-    public function getDTO() : CommentDTO
+    public function getDTO() : CreateCommentDTO
     {
         return $this->commentDTO;
     }

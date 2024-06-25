@@ -35,12 +35,41 @@
                 <div class="card-body">
                     <div class="row " style="margin: 50px 0;">
                         <div class="col-8">
-                            {!! $dataPosts->content !!}
+                            <div class="row">
+                                {!! $dataPosts->content !!}
+                            </div>
+
+                            <div class="row">
+{{--                                <div class="row">--}}
+{{--                                    <h3>Ý Kiến</h3>--}}
+{{--                                </div>--}}
+                                <div class="row comment-new">
+                                    <p>Mới nhất</p>
+                                </div>
+                                <div class="row ">
+
+                                    @if (!empty($dataComment))
+                                        @include('clients.comment', ['data'=>$dataComment, 'postsId'=>$dataPosts->posts_id])
+                                    @endif
+
+                                </div>
+                                <div class="row">
+                                    <form action="{{ route('AddComment') }}" method="POST">
+                                        <textarea name="Content" id="submit" cols="100%" rows="2" placeholder="Viết bình luận của bạn vào"></textarea>
+                                        <input type="hidden" name="PostsId" value="{{ $dataPosts->posts_id }}">
+                                        <input type="hidden" name="UserId" value="{{ Auth::user()->id }}">
+                                        @error('Content')
+                                        <p style="color: red">{{$message}}</p>
+                                        @enderror
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">Gửi</button>
+                                    </form>
+                                    <!-- <a href="?controller=login">ds</a> -->
+                                </div>
+                            </div>
                         </div>
                         <div class="col-4">
-                            <div class="row">
-                                <h3>Bình luận</h3>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -62,6 +91,43 @@
 
     .Normal {
         text-align: justify !important;
+    }
+    .comment-new {
+        color: red;
+        font-weight: 500;
+        font-size: 24px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .name-user {
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    .content-comment {
+        font-size: 20px;
+    }
+
+    #submit {
+        border-left: 2px solid #8B1E44;
+        border-radius: 4px;
+        background-color: #F7F7F7;
+        width: 100%;
+    }
+
+    .comment {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .comment .text-side-bar {
+        font-size: 23px;
+        font-weight: 500;
+    }
+
+    .reply {
+        background-color: white;
+        border: none;
+        color: blue;
     }
 </style>
 @endsection

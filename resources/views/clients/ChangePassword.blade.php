@@ -10,7 +10,7 @@
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
 
-                        <form id="myForm" class="form" action="{{route('ChangePasswordPost')}}" method="post">
+                        <form id="myForm" class="form" action="" method="post">
                             <h1 class="text-center ">Nhập mật khẩu mới</h1>
                             @error('msg')
                             <div class="form-group " style="margin-bottom: 20px;">
@@ -35,7 +35,6 @@
                             </div>
                             <div class="form-group">
                                 @csrf
-                                <input type="hidden" value="{{$id}}" name="id">
                                 <input type="submit" name="btn" class="btn btn-success btn-md" value="Thay đổi">
                             </div>
 

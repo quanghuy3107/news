@@ -8,14 +8,14 @@ use Illuminate\Support\Collection;
 class PostsTransformer
 {
 
-    private $dataPost;
+    private object $dataPost;
 
-    public function setData($dataPost)
+    public function setData(object $dataPost)
     {
         $this->dataPost = $dataPost;
     }
 
-    public function transformer()
+    public function transformer() : object
     {
         return $this->dataPost;
     }

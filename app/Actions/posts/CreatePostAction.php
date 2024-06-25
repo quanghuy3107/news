@@ -2,7 +2,7 @@
 
 namespace App\Actions\posts;
 
-use App\DTO\PostsDTO;
+use App\DTO\posts\CreatePostsDTO;
 use App\Models\PostsModel;
 
 class CreatePostAction
@@ -11,7 +11,7 @@ class CreatePostAction
     {
     }
 
-    public function handle(PostsDTO $postsDTO)
+    public function handle(CreatePostsDTO $postsDTO)
     {
 
         $file = $postsDTO->getImage();
